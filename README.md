@@ -1,2 +1,2 @@
 # HovelHelper
-Discord Bot
+Discord Bot to expose IP address.
