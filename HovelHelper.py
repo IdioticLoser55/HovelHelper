@@ -1,4 +1,5 @@
 import discord
+import subprocess
 
 # opens a file as readonly to obtain the token.
 token = open("token.txt", "r").read()
@@ -9,8 +10,10 @@ client = discord.Client()
 
 # function to find out external IP.
 async def whatsMyIP(message):
-    # need this to do what its actually supposed to do.
-    await message.channel.send(f"```Hello```")
+    # grabs my ip.
+    result = subprocess.run(['drill', '-Q', 'myip.opendns.com', '@resolver1.opendns.com'], capture_output=True, text=True).stdout
+    # prints my ip.
+    await message.channel.send(f"```{result[0:len(result) - 1]}```")
 
 
 COMMANDS = {
@@ -24,14 +27,14 @@ async def on_ready():  # method expected by client. This runs once when connecte
 
 @client.event
 async def on_message(message):  # event that happens per any message.
+    # prints message and details.
+    print(f"{message.channel}: {message.author}: {message.author.name}: {message.content}")
+
     if(message.content[0] == "?"):
         # Need to check or have some try catch for empty ones.
         # Also the ones that don't have a match.
         await COMMANDS[message.content[1:len(message.content)]](message)
 
-    # each message has a bunch of attributes. Here are a few.
-    # check out more by print(dir(message)) for example.
-    print(f"{message.channel}: {message.author}: {message.author.name}: {message.content}")
 
 
 
