@@ -4,5 +4,7 @@ After=network-online.target nss-lookup.target
 
 [Service]
 Type=simple
-Restart=always
-ExecStart=python /home/idiot/HovelHelper/HovelHelper.py
+ExecStart=/usr/bin/python3 /home/idiot/HovelHelper/HovelHelper.py
+
+[Install]
+WantedBy=multi-user.target
