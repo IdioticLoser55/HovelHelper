@@ -2,7 +2,7 @@ import discord
 import subprocess
 
 # opens a file as readonly to obtain the token.
-token = open("token.txt", "r").read()
+token = open("/home/idiot/HovelHelper/token.txt", "r").read()
 
 # Stars the discord client
 client = discord.Client()
