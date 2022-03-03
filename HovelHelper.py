@@ -7,6 +7,10 @@ token = open("/home/idiot/HovelHelper/token.txt", "r").read()
 # Stars the discord client
 client = discord.Client()
 
+COMMANDS = {
+    "ip": whatsMyIP
+}
+
 
 # function to find out external IP.
 async def whatsMyIP(message):
@@ -14,12 +18,6 @@ async def whatsMyIP(message):
     result = subprocess.run(['drill', '-Q', 'myip.opendns.com', '@resolver1.opendns.com'], capture_output=True, text=True).stdout
     # prints my ip.
     await message.channel.send(f"```{result[0:len(result) - 1]}```")
-
-
-COMMANDS = {
-    "ip": whatsMyIP
-}
-
 
 @client.event  # event decorator/wrapper. More on decorators here: https://pythonprogramming.net/decorators-intermediate-python-tutorial/. Basically makes the following function as if it has been declared inside of the function event.
 async def on_ready():  # method expected by client. This runs once when connected
@@ -35,13 +33,14 @@ async def on_message(message):  # event that happens per any message.
     # prints message and details.
     print(f"{message.guild}: {message.channel}: {message.author}: {message.author.name}: {message.content}")
 
-    if(message.content.len != 0):
+    if(len(message.content) != 0):
         if(message.content[0] == "!"):
-            # Also the ones that don't have a match.
-            await COMMANDS[message.content[1:len(message.content)]](message)
 
-
-
+            command = message.content[1:len(message.content)]
+            if(command in COMMANDS):
+                await COMMANDS[message.content[1:len(message.content)]](message)
+            else:
+                await message.channel.send(f"```Command: \"{command}\" not found.```")
 
 
 client.run(token)  # recall my token was saved!
