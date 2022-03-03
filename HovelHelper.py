@@ -2,7 +2,7 @@ import discord
 import subprocess
 
 # opens a file as readonly to obtain the token.
-token = open("token.txt", "r").read()
+token = open("/home/idiot/HovelHelper/token.txt", "r").read()
 
 # Stars the discord client
 client = discord.Client()
@@ -25,10 +25,15 @@ COMMANDS = {
 async def on_ready():  # method expected by client. This runs once when connected
     print(f'We have logged in as {client.user}')  # notification of login.
 
+    # Sends a simple startup message.
+    channel = client.get_guild(909496426390753280).get_channel(934415946410504242)
+    if(channel != None):
+        await channel.send(f"```Hello```")
+
 @client.event
 async def on_message(message):  # event that happens per any message.
     # prints message and details.
-    print(f"{message.channel}: {message.author}: {message.author.name}: {message.content}")
+    print(f"{message.guild}: {message.channel}: {message.author}: {message.author.name}: {message.content}")
 
     if(message.content.len != 0):
         if(message.content[0] == "!"):
