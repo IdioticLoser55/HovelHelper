@@ -30,10 +30,10 @@ async def on_message(message):  # event that happens per any message.
     # prints message and details.
     print(f"{message.channel}: {message.author}: {message.author.name}: {message.content}")
 
-    if(message.content[0] == "?"):
-        # Need to check or have some try catch for empty ones.
-        # Also the ones that don't have a match.
-        await COMMANDS[message.content[1:len(message.content)]](message)
+    if(message.content.len != 0):
+        if(message.content[0] == "!"):
+            # Also the ones that don't have a match.
+            await COMMANDS[message.content[1:len(message.content)]](message)
 
 
 
