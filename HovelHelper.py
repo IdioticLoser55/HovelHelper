@@ -35,7 +35,7 @@ async def on_message(message):  # event that happens per any message.
     print(f"{message.guild}: {message.channel}: {message.author}: {message.author.name}: {message.content}")
 
     if(len(message.content) != 0):
-        if(message.content[0] == "!"):
+        if(message.content[0] == "?"):
 
             command = message.content[1:len(message.content)]
             if(command in COMMANDS):
